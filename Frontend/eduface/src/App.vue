@@ -8,7 +8,7 @@ import Jobapplciations from './Jobapplciations.vue';
 </script>
 
 <template>
-  <body style="background-color:cornsilk;"> 
+  <body style="background-color: aliceblue;"> 
     <ul class="navbar"> <!--Navbar  -->
       <img alt="Vue logo" class="logo" src="./assets/edufacelogoo.jpg" width="150" />
       <div class="navbar-right">
@@ -18,18 +18,15 @@ import Jobapplciations from './Jobapplciations.vue';
     </ul>
     <div class="container">
       <h1 class="header">
-        <span class="other">Sluit je aan bij het</span><span class="green">Eduface Team</span>
+        <span class="other">Sluit je aan bij het</span><span class="green"> Eduface Team</span>
       </h1>
     </div>
 
     <div> 
-      <Jobapplciations />
+      <Jobapplciations /> <!-- Calling/render the job application components, supposed to return a list of job applications. and if empty; nothing-->
     </div>
   </body>
 
-  <main>
-    <!-- Main content -->
-  </main>
 </template>
 
 <style scoped>
@@ -41,7 +38,7 @@ body {
   display: flex;
   justify-content: center; /* Centers horizontally */
   align-items: center; /* Centers vertically */
-  margin-left:250px;
+  
 }
 
 .header {
@@ -53,26 +50,26 @@ body {
 
 .other {
   font-weight:600; /* make the text bolder */
-  color: rgb(16, 16, 72); /* Color for 'cccccc' */
+  color: rgb(16, 16, 72);
 }
 
 .green {
   font-weight:600;
-  color: green; /* Color for 'a' */
+  color: rgb(35, 200, 60);
 }
 
 .navbar {
 
   list-style-type: none;
-  position: fixed; /* Sticks the navbar to the top */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* Spans the full width of the page */
+  width: 100%; 
   z-index: 1000; /* Ensures it stays above other elements */
   padding: 0 100px; /* Adds spacing on the sides */
-  margin: 0;
-  display: flex; /* Align items in a row */
-  align-items: center; /* Centers the logo vertically */
+  margin: 50px;
+  display: flex; 
+  align-items: center; 
  
 }
 
