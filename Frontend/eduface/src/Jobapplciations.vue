@@ -88,9 +88,10 @@
   header{
     grid-column: 1;
   }
+
   .description{
-   
   }
+
   .title{ 
     color:rgb(2, 2, 82);
     font-weight: 600;
@@ -109,6 +110,7 @@
   }
 
   .button{
+    color:white;
     grid-column: 2;
     text-decoration: double;
     border-color: white;
