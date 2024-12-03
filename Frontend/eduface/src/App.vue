@@ -1,35 +1,69 @@
 
 <script setup lang="ts">
-
+import { ref , computed} from 'vue'; // Vue's reactive variable
 import Jobapplciations from './Jobapplciations.vue';
 
+const inIframeView = ref(false); // State to track iframe mode7// State for iframe view
 
-
+// Create the iframe content dynamically
+const iframeContent = computed(() => {
+  const navbarHTML = document.querySelector('.navbar')?.outerHTML || '';
+  const containerHTML = document.querySelector('.container')?.outerHTML || '';
+  
+  return `
+    <body style="background-color: aliceblue;">
+      ${navbarHTML}
+      ${containerHTML}
+      <h1 style="text-align: center; color: green;">Inframe View</h1>
+    </body>
+  `;
+});
 </script>
 
 <template>
-  <body style="background-color: aliceblue;"> 
-    <ul class="navbar"> <!--Navbar  -->
+  <body style="background-color: aliceblue;">
+    <ul class="navbar"> <!--Navbar-->
       <img alt="Vue logo" class="logo" src="./assets/edufacelogoo.jpg" width="150" />
       <div class="navbar-right">
         <li><a href="#contact">Inloggen</a></li>
-        <li style="background-color: black; border-radius: 25px; padding: 5px;"><a style="color:white;" href="#about">Sign up</a></li>
+        <li style="background-color: black; border-radius: 25px; padding: 5px;">
+          <a style="color:white;" href="#about">Sign up</a>
+        </li>
       </div>
     </ul>
-    <div class="container">
-      <h1 class="header">
-        <span class="other">Sluit je aan bij het</span><span class="green"> Eduface Team</span>
-      </h1>
+
+    <!-- Button to toggle iframe view -->
+    <div style="text-align: center; margin-top: 100px;">
+      <button @click="inIframeView = !inIframeView" style="padding: 10px 20px; border-radius: 5px; background: green; color: white;">
+        Toggle Inframe View
+      </button>
     </div>
 
-    <div> 
-      <Jobapplciations /> <!-- Calling/render the job application components, supposed to return a list of job applications. and if empty; nothing-->
+    <!-- Show iframe or normal content -->
+    <div v-if="inIframeView" style="margin-top: 20px;">
+      <iframe
+    src="about:blank"
+    style="width: 80%; height: 500px; border: 1px solid #ccc;":srcdoc="iframeContent" />
+    </div>
+    <div v-else>
+      <div class="container">
+        <h1 class="header">
+          <span class="other">Sluit je aan bij het</span><span class="green"> Eduface Team</span>
+        </h1>
+      </div>
+
+      <div>
+        <Jobapplciations />
+      </div>
     </div>
   </body>
-
 </template>
-
 <style scoped>
+iframe {
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
