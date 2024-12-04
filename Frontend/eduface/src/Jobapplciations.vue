@@ -1,44 +1,61 @@
-
 <script>
-  import axios from "axios";
-  export default { data(){
-      return {
-        applications: [], // Array to store fetched applications
-        loading: false,    // For loading state
-        error: null,       // For error handling
-      };
-    },
-    methods: { // functions that i will use //
-     
-      async fetchApplications() { // fetch job applications from the api, and thats by getting a response from the api, and pass it to the array.
-        this.loading = true;
-        try {
-          const response = await axios.get("http://localhost:3000/fetch-applications"); // get response
-          this.applications = response.data; // Store the data received
-        } catch (err) {
-          this.error = "Failed to fetch job applications"; // Handle errors
-        } finally {
-          this.loading = false;
-        }
-      },
-  
-      // Save the job application to the db
-      async saveApplication(app) {
-        
-        try {
-          const response = await axios.post("http://localhost:3000/save-application", app); // post the saved application to the db endpoint
-          alert(response.data); // Show alert message
-        } catch (err) {
-          alert(err);
-          
-        }
+import axios from "axios";
+export default {
+  data() {
+    return {
+      applications: [],
+      loading: false,
+      error: null,
+    };
+  },
+  methods: {
+    async fetchApplications() {
+      this.loading = true;
+      try {
+        const response = await axios.get("http://localhost:3000/fetch-applications");
+        this.applications = response.data;
+      } catch (err) {
+        this.error = "Failed to fetch job applications";
+      } finally {
+        this.loading = false;
       }
     },
-    mounted() { // didn't understand mounted at first, but from looking up, it means, when dom is mounted/displayed/triggered? do whatever
-      this.fetchApplications(); // Fetch applications when the component is mounted
+
+// save application to db by posting it to the db endpoint, then server.js will read it and insert 
+// the application to the db if its not there already.
+    async saveApplication(app) { 
+      try {
+        const response = await axios.post("http://localhost:3000/save-application", app);
+        alert(response.data); // log
+      } catch (err) {
+        alert(err); 
+      }
+    },
+  },
+
+  mounted() {
+    this.fetchApplications(); // fetch applications for normal ui
+    window.addEventListener("message", (event) => { // listen for iframe message that is broadcasted when  save button is clicked
+// Ensure the message is valid and not just any message
+    if (event.data && event.data.action === "saveApplication") {
+      // get the id of the application
+      const applicationId = event.data.app.id;
+      
+// Find the application with the matching id
+      const application = this.applications.find(app => app.id === applicationId);
+      
+      if (application) {
+        this.saveApplication(application); // Save the matched application
+      } else {
+        console.error("Application with the given ID not found.");
+      }
     }
-  };
-  </script>
+  });
+    return this.applications; //return application list for normal view
+  },
+};
+</script>
+
   
 
 

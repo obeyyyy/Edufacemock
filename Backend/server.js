@@ -48,7 +48,6 @@ app.post("/save-application", (req, res) =>  {
     const query = "INSERT INTO job_applications (id, title, company, location) VALUES (?, ?, ?, ?)";
 
     db.run(query, [id, title, company, location], function (err) {
-      
         if(err){
             while (i < err.message.length) // log the error for debugging
             {
@@ -57,12 +56,11 @@ app.post("/save-application", (req, res) =>  {
             }
             console.log(duplicatest);
             if (duplicatest.includes("UNIQUE constraint failed")) { // this error means that we already have a same id on the job application table
-                return res.send("Application already exist in the database"); // therefore cant insert.
+              return res.send("Application already exist in the database"); // therefore cant insert. and return this msg
             }
             else{
                 return res.status(500).send("Failed to save application")
             }
-            
         }
         else {
             return res.send("Application saved successfully");
