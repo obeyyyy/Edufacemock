@@ -3,12 +3,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      applications: [],
-      loading: false,
-      error: null,
+      applications: [], // array to store applications
+      loading: false, // loadig=ng bool
+      error: null, // error state , might be needed
     };
   },
   methods: {
+    // application getter from endpoints after being fetched from the mock lms api 
     async fetchApplications() {
       this.loading = true;
       try {
@@ -35,95 +36,87 @@ export default {
 
   mounted() {
     this.fetchApplications(); // fetch applications for normal ui
-    window.addEventListener("message", (event) => { // listen for iframe message that is broadcasted when  save button is clicked
-// Ensure the message is valid and not just any message
-    if (event.data && event.data.action === "saveApplication") {
-      // get the id of the application
-      const applicationId = event.data.app.id;
-      
-// Find the application with the matching id
-      const application = this.applications.find(app => app.id === applicationId);
-      
-      if (application) {
-        this.saveApplication(application); // Save the matched application
-      } else {
-        console.error("Application with the given ID not found.");
+    if (!window._messageListenerAdded) {
+    window.addEventListener("message", (event) => {
+      if (event.data && event.data.action === "saveApplication") {
+        const application = this.applications.find(app => app.id === event.data.app.id);
+        if (application) {
+          this.saveApplication(application);
+        } 
+        else {
+          console.error("Application not found.");
+        }
       }
+    });
+    window._messageListenerAdded = true;  // prevent adding the listener multiple times and causes multiple messages requests
     }
-  });
-    return this.applications; //return application list for normal view
+  return this.applications; //return application list for normal view
   },
 };
 </script>
-
-  
-
-
 <template>
-    <div>
+    <div style="width: auto; /* Ensures container is fully contained within the viewport */">
       <!-- display list of job applications -->
       <div v-if="loading">Loading...</div>
       <div v-if="error" class="error">{{error}}</div>
-  
-      <ul v-if="applications.length > 0">
+      <ul  v-if="applications.length > 0" style="padding: 0;">
         <li class="card" v-for="app in applications" :key="app.id">
           <div class="header">
             <h2 class="title">{{ app.title }}</h2>
             <p1 class="description">Description of the job maybe..</p1>
           </div>
+          <div>
           <p class="company">Company: {{ app.company }}</p>
           <p class="location">Location: {{ app.location }}</p>
           <p class="salary">Salary: 99,999 £ </p>    <!-- these new descriptions are for ui testing only, i know they aren't expected to be saved to database as well!-->
           <!--, but i was curious how extra description would look :) -->
+        </div>
           <button class="button"@click="saveApplication(app)"><p>Save to Database</p></button>
         </li>
       </ul>
-  
       <div v-if="applications.length === 0 && !loading">
         <p>No job applications available at the moment!</p>
       </div>
     </div>
   </template>  
   
-  <style scoped>
+  <style scoped> 
+  
   .error {
     color: red;
   }
 
   .company{
-    margin-top: 40px !important;
+    grid-column: 2;
   }
 
   .card p{
     font-weight: 600;
-    grid-column:2;
-    margin: 5px;
+    margin: 15px;
     gap:0;
-    margin-bottom: 20px;
     padding: 0;
   }
   header{
     grid-column: 1;
   }
 
-  .description{
-  }
-
   .title{ 
     color:rgb(2, 2, 82);
     font-weight: 600;
-    font-size: 2.5rem;
+    font-size: 3rem;
+    width: auto;
+    padding:10px;
     
   }
   .card{
     display: grid;
     border-radius: 15px;
-    margin:15px;
-    width:750px;
+    width:auto;
+    margin:30px;
     padding:20px;
     background-color: white;
-    box-shadow: 5px 1px 20px #c7c6c6;
-    list-style-type: none;
+    box-shadow: 1px 5px 30px 0px #6c6c746b;
+    list-style-type: none;  
   }
 
   .button{
@@ -144,6 +137,27 @@ export default {
     margin-top: 10px;
     font-size: larger;
     font-weight: 600;
+  }
+
+  @media (max-width:950px) {
+    .card{
+      display:block !important;
+      justify-items: center;
+      width: min-content 654px;
+    }
+    .description p1{
+      text-align: center;
+
+    }
+
+  }
+
+  @media (max-width:375px) {
+    .title{
+      font-size: 1.5rem;
+    }
+    
+    
   }
   </style>
   

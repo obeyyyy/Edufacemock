@@ -1,8 +1,9 @@
 @import './base.css';
 
 #app {
-  background-color: aliceblue;
-  padding: 10rem;
+  background-color: rgb(237, 247, 255);
+  padding:2rem;
+  margin:5px;
   font-weight: normal;
 }
 
@@ -10,12 +11,4 @@
 
 
 
-@media (min-width: 1024px) {
-  body {
-    background-color: aliceblue;
-    display: box;
-    place-items: center;
-  }
 
-  
-}

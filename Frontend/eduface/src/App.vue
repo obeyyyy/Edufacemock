@@ -5,11 +5,10 @@ import {iframeContent} from './iframeContent';
 
 const inIframeView = ref(false); // State to track iframe on or off
 
-
 </script>
 
 <template>
-  <div>
+  <div class="body">
     <ul class="navbar">
       <img alt="logo" class="logo" src="./assets/edufacelogoo.jpg" width="150" />
       <div class="navbar-right">
@@ -20,7 +19,7 @@ const inIframeView = ref(false); // State to track iframe on or off
       </div>
     </ul>
     <div style="text-align: center; margin-top: 50px; padding: 10px;">
-      <button @click="inIframeView = !inIframeView">
+      <button  class="button"  @click="inIframeView = !inIframeView">
         {{ inIframeView ? 'Hide Iframe' : 'Show Iframe' }}
       </button>
     </div>
@@ -36,80 +35,163 @@ const inIframeView = ref(false); // State to track iframe on or off
           <span class="other">Sluit je aan bij het</span><span class="green"> Eduface Team</span>
         </h1>
       </div>
-      <JobApplications/>
+      <JobApplications/> <!-- render the JobApplication component-->
     </div>
   </div>
 </template>
-
 <style scoped>
 iframe {
+  display: block;
   border: 1px solid #000;
   border-radius: 10px;
+  overflow: hidden;
+  width: 90%; /* Ensures iframe is responsive */
+  height: 500px;
+  margin: 0 auto; /* Centers iframe horizontally */
 }
 
-body {
-  margin: 2px;
-  font-family: Arial, Helvetica, sans-serif;
+.body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  margin: 0;
+  padding: 0;
 }
 
 .container {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
+  flex-direction: column; /* Adjust layout for smaller screens */
+  align-items: center;
+  width: 100%;
+  padding: 10px;
 }
 
 .header {
   text-align: center;
-  font-size: 3rem; /* Adjust the font size */
-  font-weight: 600;
-  white-space: nowrap; /* Prevents text from wrapping */
-  margin: 30px;
+  font-size: 3rem; /* Reduced font size for better scaling */
+  font-weight:900;
+  white-space: normal; /* Allow text wrapping on smaller screens */
+  margin: 20px;
 }
 
 .other {
-  font-weight:600; /* make the text bolder */
+  font-weight: 600;
   color: rgb(16, 16, 72);
 }
 
 .green {
-  font-weight:600;
-  color: rgb(35, 200, 60);
+  font-weight: 600;
+  color: rgb(1, 255, 39);
 }
 
 .navbar {
   list-style-type: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%; 
-  z-index: 1000; /* Ensures it stays above other elements */
-  padding: 0 100px; /* Adds spacing on the sides */
-  margin: 50px;
-  display: flex; 
-  align-items: center; 
+  position: relative; /* Changed to relative for better positioning on small screens */
+  width: 100%;
+  z-index: 1000;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap; /* Enables wrapping of elements for smaller screens */
+  align-items: center;
+  
 }
 
 .logo {
   display: block;
+  width: 120px; /* Resize logo for smaller screens */
 }
 
 .navbar-right {
-  display: flex; /* Aligns the text horizontally */
-  margin-left: auto; /* Pushes the items to the right */
-  gap: 50px; /* Adds space between the items */
+  display: flex;
+  flex-wrap: wrap; /* Allows items to stack if needed */
+  margin-left: auto;
+  gap: 15px; /* Adjust gap for smaller screens */
 }
 
 .navbar li {
   list-style: none;
 }
 
-.navbar li a {  
+.navbar li a {
   display: block;
   color: black;
-  text-align: left;
-  margin: 5px 35px; /* Adds padding for better spacing */
+  text-align: center;
+  padding: 10px 20px;
   text-decoration: none;
+  border-radius: 25px;
+  transition: background-color 0.5s ease;
 }
 
+.navbar li a:hover {
+  cursor:pointer;
+  background-color: black;
+  border-radius: 25px;
+  color: white;
+}
+
+.button{
+    color:white;
+    font-size: 1rem;
+    text-decoration: double;
+    border-color: white;
+    background-color: rgb(35, 200, 60);
+    padding: 10px;
+    border-radius: 15px 5px; /**  i added this button style by playing with random numbers and thought it looked cool*/
+  }
+  .button:hover{
+    cursor: pointer;
+    background-color:  rgb(16, 16, 72);
+    color: white;
+  }
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .navbar {
+  
+    align-items: center;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar li a {
+    padding: 8px 10px;
+    font-size: 0.9rem; /* Smaller font for mobile screens */
+  }
+
+  .header {
+    font-size: 3rem; /* Adjust font size */
+    margin: 15px;
+  }
+
+  .logo {
+    width: 100px; /* Smaller logo */
+  }
+
+  iframe {
+    width: 100%; /* Full width on smaller screens */
+    height: 300px; /* Reduced height */
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 5px 10px;
+  }
+
+  .navbar li a {
+    font-size: 0.8rem;
+  }
+
+  .header {
+    font-size: 1.5rem; /* Further adjust font size */
+  }
+
+  iframe {
+    height: 250px; /* Adjust iframe height for mobile */
+  }
+}
 </style>
 

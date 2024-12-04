@@ -5,38 +5,177 @@ export const iframeContent = `
   <!DOCTYPE html>
   <html>
     <head>
-      <style> 
-        .jobapp{justify-content:center; }
-        .jobapp .error { color: red; }
-        .jobapp ul { text-align: center; margin-right: 35px; }
-        .jobapp .company {margin-top: 40px !important; font-weight: 600; font-size: 15px; grid-column: 2; }
-        .jobapp .description { margin-bottom: auto; font-size: 8px; }
-        .jobapp .card { display: flex-box; border-radius: 15px; margin:15px; gap:10px; width: 180px; padding: 15px; background-color: white; box-shadow: 5px 1px 20px #c7c6c6; list-style-type: none; }
-        .jobapp .title { color: rgb(2, 2, 82); font-weight: 600; font-size: 1.8rem; }
-        .jobapp .location { font-weight: 600; }
-        .jobapp .button { text-decoration: double; border-color: white; background-color: rgb(35, 200, 60); padding: 5px; border-radius: 15px 5px; font-size: 10px; }
-        .button:hover { cursor: pointer; background-color: rgb(16, 16, 72); color: white; }
-        .button p { margin-top: 10px; font-size: larger; font-weight: 600; }
+       <style>
+        body {
+         font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+          padding: 10px;
+          margin: 5px;
+          overflow-x: hidden;
+          background-color: aliceblue;
+        }
+        .navbar {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          font-size: small;
+          width: 100%;
+        }
+        .navbar img.logo {
+          display: block;
+          width: 100px;
+        }
+        .navbar div {
+          display: flex;
+          margin-left: auto;
+          gap: 10px;
+        }
+        .navbar li {
+          list-style: none;
+          padding: 5px;
+        }
+        .navbar li a {
+          text-decoration: none;
+          color: black;
+          font-weight: 600;
+        }
+        .navbar li:nth-child(2) {
+          background-color: black;
+          border-radius: 25px;
+          padding: 5px;
+        }
+        .navbar li:nth-child(2) a {
+          color: white;
+        }
+        .jobapp {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 20px;
+          padding: 10px;
+          width:auto !important;
+        }
+        .jobapp .error {
+          color: red;
+        }
+        .jobapp ul {
+          text-align: center;
+          margin-right: 35px;
+          padding: 0;
+        }
+        .jobapp .card {
+          display: grid;
+          border-radius: 15px;
+          width:auto;
+          margin:30px;
+          padding:20px;
+          background-color: white;
+          box-shadow: 1px 5px 30px 0px #6c6c746b;
+         list-style-type: none;  
+         
+        }
+
+        .header {
+        text-align: center;
+        font-size: 2rem; /* Reduced font size for better scaling */
+        font-weight: 600;
+        white-space: normal; /* Allow text wrapping on smaller screens */
+        margin: 20px;
+        }
+        .jobapp .title {
+          grid-column:1;
+          color: rgb(2, 2, 82);
+          font-weight: 600;
+          font-size: 2rem;
+          margin-bottom: 5px;
+        }
+        .jobapp .company {
+          grid-column:2;
+          margin-top: 20px !important;
+          font-weight: 600;
+          font-size: 0.9rem;
+          text-align: center;
+        }
+        .jobapp .description {
+          grid-column:1;
+          margin-bottom: auto;
+          font-size: 0.8rem;
+          color: #555;
+        }
+        .jobapp .location {
+          grid-column:2;
+          font-weight: 600;
+          font-size: 0.9rem;
+        }
+        .jobapp .button {
+          grid-column:2;
+          text-decoration: none;
+          border: none;
+          background-color: rgb(35, 200, 60);
+          padding: 5px 10px;
+          border-radius: 15px 5px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+        }
+        .jobapp .button:hover {
+          background-color: rgb(16, 16, 72);
+          color: white;
+        }
+        .jobapp .button p {
+          margin-top: 10px;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+  
+        @media (max-width: 480px) {
+          .navbar {
+            flex-direction: column;
+            gap: 5px;
+          }
+
+          .jobapp .card {
+            display:block !important;
+            justify-items: center;
+            width: min-content 654px;
+            padding: 10px;
+            box-shadow: 3px 1px 15px #c7c6c6;
+          }
+          .jobapp .title {
+            font-size: 1.3rem;
+          }
+          .jobapp .button {
+            font-size: 0.6rem;
+            padding: 5px;
+          }
+            .jobapp{
+            display: block;}
+        }
       </style>
     </head>
-    <body style="padding:5px;">
-     <body style="background-color: aliceblue; margin: 0; padding:10px;">
-        <ul class="navbar" style="list-style: none; padding: 0; display: flex; align-items: center; font-size: small;">
-          <img alt="logo" class="logo" src="../src/assets/edufacelogoo.jpg" width="50" />
-          <div style="display: flex; margin-left: auto; gap: 5px;">
-            <li style="list-style: none; padding: 5px;">
-              <a href="#contact">Inloggen</a>
-            </li>
-            <li style="list-style: none; background-color: black; border-radius: 25px; padding: 5px;">
-              <a style="color: white;" href="#about">Sign up</a>
-            </li>
-          </div>
-        </ul>
-        <span>Sluit je aan bij het</span><span style="color: green"> Eduface Team</span>
+    <body>
+      <ul class="navbar">
+        <img alt="logo" class="logo" src="../src/assets/edufacelogoo.jpg" />
+        <div>
+          <li>
+            <a href="#contact">Inloggen</a>
+          </li>
+          <li>
+            <a href="#about">Sign up</a>
+          </li>
+        </div>
+      </ul>
+      <div class="header">
+      <span>Sluit je aan bij het</span><span style="color: rgb(1, 255, 39);"> Eduface Team</span>
+      </div>
       <div class="jobapp">
-        <div id="loading" style="text-align: center;">Loading...</div>
-        <div id="error" style="color: red; display: none;">Failed to fetch job applications</div>
-        <ul id="applications" style="list-style: none; padding: 0;"></ul>
+        <div id="loading">Loading...</div>
+        <div id="error" style="display: none;">Failed to fetch job applications</div>
+        
+        <ul id="applications"></ul>
+        
       </div>
       <script> // FETCH APPLICATIONS TO DISPLAY ON LIST 
         async function fetchApplications() {
@@ -62,12 +201,14 @@ export const iframeContent = `
                   <h2 class="title">\${app.title}</h2>
                   <p class="description">\${app.description || 'no description available yet'}</p>
                 </div>
+                <div style="grid-column:2;">
                 <p class="company">Company: \${app.company}</p>
                 <p class="location">Location: \${app.location}</p>
                 <p class="salary">Salary: \${app.salary || 'no salary available yet'}</p>
                 <button class="button" onclick="saveApplication(\${JSON.stringify(app).replace(/"/g, '&quot;')})">
                   <p>Save to Database</p>
                 </button>
+                </div>
               \`;
               applicationsElement.appendChild(card); 
             });
